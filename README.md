@@ -74,50 +74,51 @@ RegisterNumber: 22006708
 
 UP COUNTER:
 ```
-module upcounter(input clk,input reset,output[0:3]counter);
-reg[0:3] counter_up;
-always@(posedge clk or posedge reset)
+module Counters(clk,A);
+input clk;
+output reg [3:0]A;
+always @(posedge clk)
 begin
-if(reset)
-counter_up<=4'd0;
-else
-counter_up<=counter_up+4'd1;
+	A[3]=(((A[0])&(A[1])&(A[2]))^A[3]);
+	A[2]=(((A[0])&(A[1]))^A[2]);
+	A[1]=(A[0])^A[1];
+	A[0]=A[0]^1;
 end
-assign counter=counter_up;
 endmodule
+
 ```
 
 DOWN COUNTER:
 ```
-module downcounter(input clk,input reset,output[0:3]counter);
-reg[0:3] counter_down;
-always@(posedge clk or posedge reset)
+module exp06d(clk,A);
+input clk;
+output reg [3:0]A;
+always@(posedge clk)
 begin
-if(reset)
-counter_down<=4'd0;
-else
-counter_down<=counter_down-4'd1;
+	A[3]=(((~A[0])&(~A[1])&(~A[2]))^A[3]);
+	A[2]=(((~A[0])&(~A[1]))^A[2]);
+	A[1]=(~A[0])^A[1];
+	A[0]=1^A[0];
 end
-assign counter=counter_down;
 endmodule
 ```
 
 ### RTL LOGIC UP COUNTER AND DOWN COUNTER  
 
 UP COUNTER:
-![Screenshot_20230124_104122](https://user-images.githubusercontent.com/118886489/214362012-8e3f7033-be84-4a14-b135-0dcbba18a763.png)
+![Screenshot 2023-10-31 103742](https://github.com/Balachandran143/Exp-7-Synchornous-counters-/assets/118886489/d39af8f1-a8d4-42a5-8649-532c6f5e4a24)
 
 DOWN COUNTER:
-![Screenshot_20230124_104651](https://user-images.githubusercontent.com/118886489/214362299-67b31f9a-e8c8-43fd-a02c-81fe38caa837.png)
+![Screenshot 2023-10-31 113859](https://github.com/Balachandran143/Exp-7-Synchornous-counters-/assets/118886489/9ebb48f4-acd7-43ed-b22d-05b6d6c86e31)
 
 
 ### TIMING DIGRAMS FOR COUNTER  
 
 UP COUNTER:
-![Screenshot_20230124_104801](https://user-images.githubusercontent.com/118886489/214362834-120a53ce-d7bb-412a-9934-6717af58a1c5.png)
+![Screenshot 2023-10-31 112035](https://github.com/Balachandran143/Exp-7-Synchornous-counters-/assets/118886489/90fc12e4-1d50-4d6b-89fd-876a34b95fe7)
 
 DOWN COUNTER:
-![Screenshot_20230124_104828](https://user-images.githubusercontent.com/118886489/214363036-423b876c-8262-41b1-8f8f-60c435aa50e5.png)
+![Screenshot 2023-10-31 114004](https://github.com/Balachandran143/Exp-7-Synchornous-counters-/assets/118886489/3f8a4638-33c3-4620-b490-95a74cb2e2d0)
 
 ### TRUTH TABLE FOR COUNTERS:
 
